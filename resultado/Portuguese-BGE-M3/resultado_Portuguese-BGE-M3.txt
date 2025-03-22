@@ -1,0 +1,9 @@
+Acertos Completos 861 
+Acertos Parciais Posição 2 65 
+Acertos Parciais Posição 3 28 
+Acertos Parciais Outros 26 
+Erros 20 
+
+Métricas do modelo: {'MRR@10': 0.908883333333334, 'Recall@5': 0.98, 'NDCG@10': np.float64(0.5858863602844167)}
+
+Total de tokens: 154.266
