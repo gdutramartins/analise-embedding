@@ -15,6 +15,7 @@ import csv
 from typing import List, Tuple, Union, Dict, Any, Optional
 import boto3
 import json
+from tqdm import tqdm
 
 class IndiceVetorial:
     """
@@ -33,23 +34,12 @@ class IndiceVetorial:
         self.metadados = metadados
    
 
-class DummyEmbeddings(Embeddings):
-    """Classe de placeholder para embeddings quando FAISS já tem os vetores prontos."""
-    def embed_documents(self, texts):
-        raise NotImplementedError("Os embeddings já foram gerados externamente.")
-
-    def embed_query(self, text):
-        raise NotImplementedError("Os embeddings já foram gerados externamente.")
-
 # Configuração do cliente Bedrock
 bedrock = boto3.client("bedrock-runtime", region_name="us-east-1")
 
 # Modelos de embedding
 models = {
-    #"Portuguese-BGE-M3": "nonola/portuguese-bge-m3",
-    #"BAAI-BGE-M3": "BAAI/bge-m3",
-    #"MiniLM": "sentence-transformers/all-MiniLM-L6-v2",
-    "Amazon-Titan": "amazon.titan-embed-text-v2:0"
+   "Amazon-Titan": "amazon.titan-embed-text-v2:0"
 }
 
 def get_referencia_modelo(nome_modelo) -> str:
@@ -126,7 +116,7 @@ def indexar_faiss(documentos: List[Document], referencia_modelo:str, caminho_ind
     embeddings = []
     metadados =  []
 
-    for doc in documentos:
+    for doc in tqdm(documentos, "gerando embeddings..."):
         embedding = gerar_embedding(referencia_modelo, doc.page_content)  # Chama a função para gerar embeddings
         embeddings.append(embedding)
         metadados.append(doc.metadata)
@@ -236,10 +226,10 @@ def carregar_msmarco(caminho_collection, caminho_queries, caminho_qrels, caminho
     df_docs_filtered = df_docs[df_docs['doc_id'].isin(df_bm25_filtered['doc_id'])]
 
     # Identificar IDs faltantes, já que o BM25 não é um gabarito, mas a execução de um modelo
-    relevancias = df_qrels[df_qrels['query_id'].isin(sampled_queries['query_id'])]
-    doc_ids_relevancias = set(relevancias['doc_id'])
+    gabarito = df_qrels[df_qrels['query_id'].isin(sampled_queries['query_id'])]
+    doc_ids_gabarito = set(gabarito['doc_id'])
     doc_ids_filtered = set(df_docs_filtered['doc_id'])
-    doc_ids_faltantes = doc_ids_relevancias - doc_ids_filtered
+    doc_ids_faltantes = doc_ids_gabarito - doc_ids_filtered
 
     df_docs['doc_id'] = df_docs['doc_id'].astype(int)
     # Adicionar IDs faltantes a df_docs_filtered
@@ -252,16 +242,19 @@ def carregar_msmarco(caminho_collection, caminho_queries, caminho_qrels, caminho
     print("Criando documentos para FAISS...")
 
     documentos = [criar_documento(row['document'], row['doc_id']) for _, row in df_docs_filtered.iterrows()]
-    relevancias = df_qrels[df_qrels['query_id'].isin(sampled_queries['query_id'])]
+    print(f"Total de documentos: {len(documentos)}")
+    print(f"Total de queries: {len(sampled_queries)}")
 
-    return documentos, sampled_queries, relevancias
+    return documentos, sampled_queries, gabarito
 
-def processar_resultado(query, resposta_correta, retrieved_ids, resultados: List[Dict[str,Any]], docs, estatisticas):
+
+def processar_resultado(query: str, ids_gabarito: List[int], retrieved_ids: List[int], resultados:  List[Tuple[str, Dict[str, Any]]], docs: List[Document], estatisticas: Dict[str, float]):
     """ Processa os resultados e classifica como acerto completo, parcial ou erro. """
-    if retrieved_ids[0] == resposta_correta:
+    if retrieved_ids[0] in ids_gabarito:
         estatisticas["acertos_completos"].append((query, resultados[0]['original']))
-    elif resposta_correta in retrieved_ids:
-        posicao = retrieved_ids.index(resposta_correta)
+    elif set(ids_gabarito) & set(retrieved_ids): #existe interseção entre os dois vetores
+        set_gabarito = set(ids_gabarito)  # Para busca eficiente
+        posicao =  next((i for i, x in enumerate(retrieved_ids) if x in set_gabarito), -1)
         lista_retorno = [res['original'] for res in resultados[:posicao + 1]]
         lista_retorno[posicao] = '-->' + lista_retorno[posicao]
         if posicao == 1:
@@ -271,9 +264,9 @@ def processar_resultado(query, resposta_correta, retrieved_ids, resultados: List
         else:
             estatisticas["acertos_parciais_outros"].append((query, lista_retorno))
     else:
-        lista_retorno_erro = [res['original'] for res in resultados]
-        texto_correto = obter_conteudo_original_por_doc_id(docs, resposta_correta)
-        lista_retorno_erro.append('-->' + texto_correto)
+        lista_retorno_erro = [res[1]['original'] for res in resultados]
+        for id_resposta_correta in ids_gabarito:
+          lista_retorno_erro.append('-->' + obter_conteudo_original_por_doc_id(docs, id_resposta_correta))
         estatisticas["erros"].append((query, lista_retorno_erro))
 
 
@@ -293,7 +286,7 @@ def salvar_resultados(nome_modelo: str, estatisticas: Dict[str, List], metricas:
         gravar_vetor_em_arquivo(vetor, f"{categoria}.txt")
 
 def avaliar_modelo(nome_modelo: str, docs: List[Document], indiceVetorial: IndiceVetorial, queries: pd.DataFrame,
-                   relevancias: pd.DataFrame, top_k=5) -> Dict[str, float]:
+                   gabarito: pd.DataFrame, top_k=5) -> Dict[str, float]:
     """
     Avalia um modelo de busca utilizando métricas MRR, Recall@5 e NDCG@10.
     """
@@ -310,19 +303,22 @@ def avaliar_modelo(nome_modelo: str, docs: List[Document], indiceVetorial: Indic
     mrr, recall, ndcg = 0, 0, 0
     num_queries = len(queries)
     
-    for _, row in queries.iterrows():
+    for _, row in tqdm(queries.iterrows(), total=len(queries), desc="processando queries"):
         query_id, query = row['query_id'], row['query']
         resultados = buscar_faiss(get_referencia_modelo(nome_modelo),indiceVetorial, query, top_k)
         retrieved_ids = [res['doc_id'] for res in resultados]
-        relevant_ids = relevancias[relevancias['query_id'] == query_id]['doc_id'].tolist()
-        resposta_correta = relevant_ids[0]
+        ids_gabarito = gabarito[gabarito['query_id'] == query_id]['doc_id'].tolist()
         
-        processar_resultado(query, resposta_correta, retrieved_ids, resultados, docs, estatisticas)
+        processar_resultado(query, ids_gabarito, retrieved_ids, resultados, docs, estatisticas)
         
         # Calculando métricas
-        mrr += 1 / (retrieved_ids.index(resposta_correta) + 1) if resposta_correta in retrieved_ids else 0
-        recall += len(set(retrieved_ids) & set(relevant_ids)) / len(relevant_ids)
-        ndcg += ndcg_score([[1 if doc in relevant_ids else 0 for doc in retrieved_ids]], [[1] * len(retrieved_ids)])
+        if any(id_correto in retrieved_ids for id_correto in ids_gabarito):
+          first_correct_rank = min(retrieved_ids.index(id_correto) + 1 for id_correto in ids_gabarito if id_correto in retrieved_ids)
+          mrr += 1 / first_correct_rank
+        else:
+          mrr += 0
+        recall += len(set(retrieved_ids) & set(ids_gabarito)) / len(ids_gabarito)
+        ndcg += ndcg_score([[1 if doc in ids_gabarito else 0 for doc in retrieved_ids]], [[1] * len(retrieved_ids)])
     
     metricas = {
         "MRR@10": mrr / num_queries,
@@ -356,7 +352,7 @@ modelo = get_referencia_modelo(nome_modelo)
 # Carregar dados
 documentos,queries, relevancias = carregar_msmarco(caminho_collection, caminho_queries,
                                                     caminho_qrels, caminho_bm25,
-                                                    num_queries=1000, num_posicoes_ranking=numero_posicoes_ranking_para_analise)
+                                                    num_queries=3, num_posicoes_ranking=numero_posicoes_ranking_para_analise)
 
 # Verificar se FAISS já foi indexado
 indice = carregar_faiss(caminho_index + "_" + nome_modelo)
