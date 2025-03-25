@@ -1,0 +1,6 @@
+Acertos Completos: 876
+Acertos Parciais Posição 2: 42
+Acertos Parciais Posição 3: 23
+Acertos Parciais Outros: 16
+Erros: 43
+Métricas: {'MRR@10': 0.9085166666666669, 'Recall@5': 0.9555, 'NDCG@10': 0.571600312564882}

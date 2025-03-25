@@ -264,7 +264,7 @@ def processar_resultado(query: str, ids_gabarito: List[int], retrieved_ids: List
         else:
             estatisticas["acertos_parciais_outros"].append((query, lista_retorno))
     else:
-        lista_retorno_erro = [res[1]['original'] for res in resultados]
+        lista_retorno_erro = [res['original'] for res in resultados]
         for id_resposta_correta in ids_gabarito:
           lista_retorno_erro.append('-->' + obter_conteudo_original_por_doc_id(docs, id_resposta_correta))
         estatisticas["erros"].append((query, lista_retorno_erro))
@@ -352,7 +352,7 @@ modelo = get_referencia_modelo(nome_modelo)
 # Carregar dados
 documentos,queries, relevancias = carregar_msmarco(caminho_collection, caminho_queries,
                                                     caminho_qrels, caminho_bm25,
-                                                    num_queries=3, num_posicoes_ranking=numero_posicoes_ranking_para_analise)
+                                                    num_queries=1000, num_posicoes_ranking=numero_posicoes_ranking_para_analise)
 
 # Verificar se FAISS já foi indexado
 indice = carregar_faiss(caminho_index + "_" + nome_modelo)
