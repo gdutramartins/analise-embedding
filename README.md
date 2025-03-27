@@ -6,7 +6,7 @@ Utilizamos a base disponível no Hugginface para nossa análise, traduzida para 
 Criei um dataset no Kaggle somente com os arquivos utilizados em nossa análise, sendo um subconjunto do material acima citado - [link](https://www.kaggle.com/datasets/gustavodutramartins/msmarco) 
 
 ## Objetivo
-Analisar a performance do Amazon Titan, disponível na infraestrutura de foundation models do AWS Bedrock, frente a modelos do Huggingfaces, no língua portuguesa (pt_br). O corpus utilzado pela AWS, bem como o suporte a outras línguas, no caso o português, não ficava claro. 
+Analisar a performance do Amazon Titan, disponível na infraestrutura de foundation models do AWS Bedrock, frente a modelos do Huggingfaces, na língua portuguesa (pt_br). O corpus utilzado pela AWS, bem como o suporte a outras línguas, no caso o português, não estava claro na documentação. 
 Modelos utilizados no teste:
 - Amazon Titan - projetado para uma ampla gama de aplicações de IA, incluindo busca semântica, sistemas de recomendação e chatbots.
 - BAAI/bge-m3 - modelo de embedding multilíngue, conhecido por seu desempenho de ponta em benchmarks de recuperação de informações. Projetado para ser eficiente em termos de velocidade e uso de memória, tornando-o adequado para aplicações de grande escala.  
@@ -37,10 +37,10 @@ O dataset original Msmarco é um pouco diferente do utilizado nesse estudo, o ma
 
 #### Coleção de Perguntas  
 --- 
-Três arquivos com o mesmo layout: query_id - identificador da pergunta e query - texto da pergunta
+Três arquivos com o mesmo layout: _query_id_ - identificador da pergunta e _query_ - texto da pergunta
 
-- portuguese_queries.train.tsv - - 101.093 registros 
-- portuguese_queries.dev.tsv - 808.731 registros (dados de treino, não incluso no gabarito)
+- portuguese_queries.train.tsv -  808.731 registros (dados de treino, não incluso no gabarito)  
+- portuguese_queries.dev.tsv - 101.093 registros  
 - portuguese_queries.dev.small.tsv - 6.980 registros ( está incluído em portuguese_queries.dev.tst)
 
 
