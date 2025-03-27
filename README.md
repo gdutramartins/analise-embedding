@@ -22,8 +22,8 @@ Motivos de sua escolha:
 - o conjunto de dados msmarco pode ser usado para treinar e avaliar modelos de "embeddings de texto", que são utilizados em pesquisas de similaridade vetorial.
 
 ### Estudo do Dataset
-O dataset original Msmarco é um pouco diferente do utilizado nesse estudo, o material dispoonibilizado no Huggingface tem separações diferentes, as quais explicaremos nos próximos tópicos.
-
+O dataset original Msmarco é um pouco diferente do utilizado nesse estudo, o material dispoonibilizado no Huggingface tem separações diferentes, as quais explicaremos nos próximos tópicos.  
+<br>
 #### Coleção de Respostas em Português  
 ---
 - portuguese_collection.tsv - 8.841.823 registros com 2 colunas, identificador do documento (doc_id) e texto (document)
@@ -32,8 +32,9 @@ O dataset original Msmarco é um pouco diferente do utilizado nesse estudo, o ma
 | :------: | -------- | 
 |  0       |  A presença de comunicação entre mentes científicas foi tão importante para o sucesso do Projeto Manhattan quanto o intelecto científico. A única nuvem que paira sobre a impressionante ...   | 
 | 94       | Steve Wheeler foi recentemente nomeado Diretor de Crédito da Lendmark Financial Services, LLC. Clique para saber mais sobre Steve Wheeler.   | 
-| 125      | O District Griffin é um dos primeiros edifícios de super condomínio a ser concluído na área de Griffintown. Apropriadamente nomeado para sua localização na parte inferior da rua Peel, District Griffin ...  | 
-
+| 125      | O District Griffin é um dos primeiros edifícios de super condomínio a ser concluído na área de Griffintown. Apropriadamente nomeado para sua localização na parte inferior da rua Peel, District Griffin ...  |
+  
+<br>
 
 #### Coleção de Perguntas  
 --- 
@@ -41,18 +42,19 @@ Três arquivos com o mesmo layout: _query_id_ - identificador da pergunta e _que
 
 - portuguese_queries.train.tsv -  808.731 registros (dados de treino, não incluso no gabarito)  
 - portuguese_queries.dev.tsv - 101.093 registros  
-- portuguese_queries.dev.small.tsv - 6.980 registros ( está incluído em portuguese_queries.dev.tst)
-
+- portuguese_queries.dev.small.tsv - 6.980 registros ( está incluído em portuguese_queries.dev.tst)  
+  
+<br>
 
 #### Gabarito - Perguntas com respostas   
 --- 
 - qrels.dev.tsv = 59.273 registros
 - Existem repetições nas respostas (demonstração abaixo)
 - Colunas :  
-query_id - identificador da pergunta
-coluna com o valor 0
-doc_id - resposta correta
-relevance - 1 (sempre 1)  
+  - query_id - identificador da pergunta  
+  - coluna com o valor 0  
+  - doc_id - resposta correta    
+  - relevance - 1 (sempre 1)    
 
 Algumas perguntas possuem mais de uma respsota e isso deve ser avaliado na análise das respostas
 
