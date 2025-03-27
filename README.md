@@ -93,7 +93,7 @@ print(f"5 ocorrências: {qtd_5_ocorrencias}")
 <br><br>
 
 ## Execução
-Como nosso objetivo é comparar modelos então os passos executados são similares para cada um dos participantes, ajustando somente a chamada ao modelo para fazer o embedding do documento e da pergunta. O Amazon Titan teve um tratamento diferente porque sua invocação é por serviço, mas os detalhes serão trataos em um subtópico.   
+Como nosso objetivo é comparar modelos então os passos executados são similares para cada um dos participantes, ajustando somente a chamada ao modelo para fazer o embedding do documento e da pergunta. O Amazon Titan teve um tratamento diferente porque sua invocação é por serviço, mas os detalhes serão tratados em um subtópico.   
 Os passos, em alto nível, são os seguintes:   
 1 - Montagem do Dataset. - Escolha das perguntas, respectivas respostas gabarito e respostas com semantica parecida.   
 2 - Montagem da representação vetorial de todas as respostas (embedding), sejam elas corretas ou não.   
