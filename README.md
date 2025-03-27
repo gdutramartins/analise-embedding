@@ -89,8 +89,8 @@ print(f"5 ocorrências: {qtd_5_ocorrencias}")
   - doc_id - identificador do documento que responde a pergunta
   - rank - ranking da resposta. Para cada pergunta o ranking vai até 1.000.
 - 6.975.268 registros
-- Esse arquivo não é o gabarito, mas para tornar o teste interessante optamos por só utilizar queries que estão nesse arquivo, adicionando os 5 primeiros itens do ranking a nossa base. Teremos então para cada pergunta 5 respostas com semântica parecida, segundo a execução do modelo, para dificultar a seleção da resposta correta. **Importante ressaltar que esse arquivo não é um gabarito, mas uma fonte de documentos parecidos**.  
-
+- Esse arquivo não é o gabarito, mas para tornar o teste interessante optamos por só utilizar queries que estão nesse arquivo, adicionando os 5 primeiros itens do ranking a nossa base. Teremos então para cada pergunta 5 respostas com semântica parecida, segundo a execução do modelo, para dificultar a seleção da resposta correta. **Importante ressaltar que esse arquivo não é um gabarito, mas uma fonte de documentos próximos semanticamente segundo as conclusões de um modelo**.  
+<br><br>
 
 ## Execução
 
