@@ -56,7 +56,7 @@ Três arquivos com o mesmo layout: _query_id_ - identificador da pergunta e _que
   - doc_id - resposta correta    
   - relevance - 1 (sempre 1)    
 
-Algumas perguntas possuem mais de uma respsota e isso deve ser avaliado na análise das respostas
+Algumas perguntas possuem mais de uma resposta e isso deve ser tratado na avaliação da resposta encontrada pelo modelo
 
 ```
 df_qrels = pd.read_csv(caminho_qrels, sep='\t', header=None, names=['query_id', '0', 'doc_id', 'relevance'])
@@ -74,12 +74,22 @@ print(f"5 ocorrências: {qtd_5_ocorrencias}")
 ```  
 
 > Número de identificadores com mais de uma ocorrência  
-  2 ocorrências: 2690  
-3 ocorrências: 355  
-4 ocorrências: 72  
-5 ocorrências: 16   
+>  -  2 ocorrências: 2690  
+>  - 3 ocorrências: 355  
+>  - 4 ocorrências: 72  
+>  - 5 ocorrências: 16   
 
+<br>
 
+#### Arquivo complementar
+---  
+- run.bm25_portuguese-msmarco.txt - Pelo que compreendi no link do Huggingface, esse arquivo é resultado da execução de um modelo T5 (Text-to-Text Transfer Transformer).
+- Colunas
+  - query_id - identificador da query  
+  - doc_id - identificador do documento que responde a pergunta
+  - rank - ranking da resposta. Para cada pergunta o ranking vai até 1.000.
+- 6.975.268 registros
+- Esse arquivo não é o gabarito, mas para tornar o teste interessante optamos por só utilizar queries que estão nesse arquivo, adicionando os 5 primeiros itens do ranking a nossa base. Teremos então para cada pergunta 5 respostas com semântica parecida, segundo a execução do modelo, para dificultar a seleção da resposta correta. **Importante ressaltar que esse arquivo não é um gabarito, mas uma fonte de documentos parecidos**.  
 
 
 ## Execução
