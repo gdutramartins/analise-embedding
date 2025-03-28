@@ -66,15 +66,15 @@ qtd_3_ocorrencias = len(contagem[contagem == 3])
 qtd_4_ocorrencias = len(contagem[contagem == 4])
 qtd_5_ocorrencias = len(contagem[contagem == 5])
 
-print(f"Número de identificadores com mais de uma ocorrência")
+print(f"Número de perguntas com mais de uma resposta")
 print(f"2 ocorrências: {qtd_2_ocorrencias}")
 print(f"3 ocorrências: {qtd_3_ocorrencias}")
 print(f"4 ocorrências: {qtd_4_ocorrencias}")
 print(f"5 ocorrências: {qtd_5_ocorrencias}")
 ```  
 
-> Número de identificadores com mais de uma ocorrência  
->  -  2 ocorrências: 2690  
+> Número de perguntas com mais de uma resposta  
+>  - 2 ocorrências: 2690  
 >  - 3 ocorrências: 355  
 >  - 4 ocorrências: 72  
 >  - 5 ocorrências: 16   
