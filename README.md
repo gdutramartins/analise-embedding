@@ -224,7 +224,7 @@ Uma segunda análise foi realizada, gerando arquivos com exemplos, da seguinte f
 **Acertos, Acertos Parciais, Erros**
 
 | Modelo | 1a pos | 2a pos |  3a pos | 4/5a pos | Erro
-| :------: | -------- |  -------- | -------- | -------- | -------- |
+| :------ | -------- |  -------- | -------- | -------- | -------- |
 |  Amazon Titan | 7605  | 805 | 363 |  368 | 859 |
 |  BAAI/bge-m3 | 7804  | 765 | 355 | 353  | 723 |
 |  portuguese-bge-m3 | 7822  | 756 | 349 | 350  | 723 |
