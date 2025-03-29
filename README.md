@@ -172,4 +172,61 @@ Uma segunda análise foi realizada, gerando arquivos com exemplos, da seguinte f
 
 ## Sobre o Resultado Gerado
 - diponível na aba [resultado](resultado/)
-- 
+- Fizemos duas execuções 
+  - 1.000 perguntas com 1.603 opções de respostas selecionadas
+  - 10.000 perguntas com 16.420 respostas selecionadas
+- A tabela com as métricas para cada uma das execuções está listada abaixo  
+
+<br>  
+
+### Mil Perguntas
+---  
+<br>   
+
+**Métricas**
+
+| Modelo | MRR | NDCG |  Recall |
+| :------ | -------- |  -------- | -------- |
+|  Amazon Titan |0.90851  | 0.9555 | 0.5716 |  
+|  BAAI/bge-m3 | 0.92341 | 0.9805  | 0.5863 |  
+|  portuguese-bge-m3 | 0.9248 | 0.98 | 0.5858 |  
+|  MiniLM | 0.6163 | 0.70875 | 0.4282 |  
+ 
+ <br>
+   
+**Acertos, Acertos Parciais, Erros**
+
+| Modelo | 1a pos | 2a pos |  3a pos | 4/5a pos | Erro
+| :------ | -------- |  -------- | -------- | -------- | -------- |
+|  Amazon Titan | 876  | 42 | 23 |  16 | 43|
+|  BAAI/bge-m3 | 887  | 45 | 23 | 27  | 18 |
+|  portuguese-bge-m3 | 890  | 43 | 22 | 26  | 19 |
+|  MiniLM |  553 | 77 | 42 | 48  | 280 |
+
+<br>
+
+### Dez Mil Perguntas
+---  
+<br>   
+
+**Métricas**
+
+| Modelo | MRR | NDCG |  Recall |
+| :------ | -------- |  -------- | -------- |
+|  Amazon Titan |0.8213  | 0.9084 | 0.5460 |  
+|  BAAI/bge-m3 | 0.8385 | 0.9230  | 0.5544 |  
+|  portuguese-bge-m3 | 0.8396 | 0.9229 | 0.5544 |  
+|  MiniLM | 0.4506 | 0.5533 | 0.3354 |  
+ 
+ <br>
+
+
+**Acertos, Acertos Parciais, Erros**
+
+| Modelo | 1a pos | 2a pos |  3a pos | 4/5a pos | Erro
+| :------: | -------- |  -------- | -------- | -------- | -------- |
+|  Amazon Titan | 7605  | 805 | 363 |  368 | 859 |
+|  BAAI/bge-m3 | 7804  | 765 | 355 | 353  | 723 |
+|  portuguese-bge-m3 | 7822  | 756 | 349 | 350  | 723 |
+|  MiniLM | 3830 | 794 | 448 | 568  | 4360 |
+
