@@ -131,7 +131,7 @@ O Amazon Titan é chamado por serviço, necessitando de um tratamento diferencia
 
 ## Arquitetura
 
-Para os modelos do Huggingface foi criado um jupyter notebook, sendo executado no Google Colab com uma GPU T4 de 16gb. Para as chamadas na Amazon o programa foi executado no meu notebook, sem GPU.
+Para os modelos do Huggingface foi criado um jupyter notebook, sendo executado no Google Colab com uma GPU T4 de 16gb. Para as chamadas na Amazon o programa foi executado em um notebook sem GPU.
 
 Para pesquisa multidimensional dos embeddings foi utilizada a biblioteca FAISS. 
 
