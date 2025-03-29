@@ -6,8 +6,8 @@ Utilizamos a base disponível no Hugginface para nossa análise, traduzida para 
 Criei um dataset no Kaggle somente com os arquivos utilizados em nossa análise, sendo um subconjunto do material acima citado - [link](https://www.kaggle.com/datasets/gustavodutramartins/msmarco) 
 
 ## Objetivo
-Analisar a performance do Amazon Titan, disponível na infraestrutura de foundation models do AWS Bedrock, frente a modelos do Huggingfaces, na língua portuguesa (pt_br). O corpus utilzado pela AWS, bem como o suporte a outras línguas, no caso o português, não estava claro na documentação. 
-Modelos utilizados no teste:
+Analisar a performance do Amazon Titan, disponível na infraestrutura de foundation models do AWS Bedrock, frente a modelos do Huggingfaces, na língua portuguesa (pt_br). O corpus utilzado pela AWS, bem como o suporte a outras línguas, no caso o português, não estava claro na documentação.  
+Modelos que fazem *embedding* utilizados no teste:
 - Amazon Titan - projetado para uma ampla gama de aplicações de IA, incluindo busca semântica, sistemas de recomendação e chatbots.
 - BAAI/bge-m3 - modelo de embedding multilíngue, conhecido por seu desempenho de ponta em benchmarks de recuperação de informações. Projetado para ser eficiente em termos de velocidade e uso de memória, tornando-o adequado para aplicações de grande escala.  
 - nonola/portuguese-bge-m3 - modelo treinado a partir do modelo BGE-M3 para fornecer embeddings de alta qualidade para textos em português. 
