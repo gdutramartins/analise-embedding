@@ -41,7 +41,7 @@ O dataset original Msmarco é um pouco diferente do utilizado nesse estudo, o ma
 Três arquivos com o mesmo layout: _query_id_ - identificador da pergunta e _query_ - texto da pergunta
 
 - portuguese_queries.train.tsv -  808.731 registros (dados de treino, não incluso no gabarito)  
-- portuguese_queries.dev.tsv - 101.093 registros  
+- **portuguese_queries.dev.tsv - 101.093 registros**  ✅  
 - portuguese_queries.dev.small.tsv - 6.980 registros ( está incluído em portuguese_queries.dev.tst)  
   
 <br>
