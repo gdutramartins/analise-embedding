@@ -352,7 +352,7 @@ modelo = get_referencia_modelo(nome_modelo)
 # Carregar dados
 documentos,queries, relevancias = carregar_msmarco(caminho_collection, caminho_queries,
                                                     caminho_qrels, caminho_bm25,
-                                                    num_queries=1000, num_posicoes_ranking=numero_posicoes_ranking_para_analise)
+                                                    num_queries=10000, num_posicoes_ranking=numero_posicoes_ranking_para_analise)
 
 # Verificar se FAISS já foi indexado
 indice = carregar_faiss(caminho_index + "_" + nome_modelo)
