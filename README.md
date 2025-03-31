@@ -194,14 +194,17 @@ Uma segunda análise foi realizada, gerando arquivos com exemplos, da seguinte f
  
  <br>
    
-**Acertos, Acertos Parciais, Erros**
+**Acertos, Acertos Parciais, Erros**  
+<br>
+Entendemos que se a busca encontrou o item procurado nos 5 primeiros registros da resposta então tivemos sucesso na indexação vetorial e pesquisa. Criamos essa heurística para o estudo e não tem aplicação geral para análise de busca semântica, mas se adequa ao nosso cenário.
 
-| Modelo | 1a pos | 2a pos |  3a pos | 4/5a pos | Erro
-| :------ | -------- |  -------- | -------- | -------- | -------- |
-|  Amazon Titan | 876  | 42 | 23 |  16 | 43|
-|  BAAI/bge-m3 | 887  | 45 | 23 | 27  | 18 |
-|  portuguese-bge-m3 | 890  | 43 | 22 | 26  | 19 |
-|  MiniLM |  553 | 77 | 42 | 48  | 280 |
+
+| Modelo | 1a pos | 2a pos |  3a pos | 4/5a pos | Erro | % Sucesso |
+| :------ | -------- |  -------- | -------- | -------- | -------- | :-----: |
+|  Amazon Titan | 876  | 42 | 23 |  16 | 43 | 95,7 % |
+|  BAAI/bge-m3 | 887  | 45 | 23 | 27  | 18 | 98,2 % |
+|  portuguese-bge-m3 | 890  | 43 | 22 | 26  | 19 | 98,1 % |
+|  MiniLM |  553 | 77 | 42 | 48  | 280 | 72,0 % |
 
 <br>
 
@@ -221,12 +224,14 @@ Uma segunda análise foi realizada, gerando arquivos com exemplos, da seguinte f
  <br>
 
 
-**Acertos, Acertos Parciais, Erros**
+**Acertos, Acertos Parciais, Erros**  
+<br>  
+Entendemos que se a busca encontrou o item procurado nos 5 primeiros registros da resposta então tivemos sucesso na indexação vetorial e pesquisa. Criamos essa heurística para o estudo e não tem aplicação geral para análise de busca semântica, mas se adequa ao nosso cenário.
 
-| Modelo | 1a pos | 2a pos |  3a pos | 4/5a pos | Erro
-| :------ | -------- |  -------- | -------- | -------- | -------- |
-|  Amazon Titan | 7605  | 805 | 363 |  368 | 859 |
-|  BAAI/bge-m3 | 7804  | 765 | 355 | 353  | 723 |
-|  portuguese-bge-m3 | 7822  | 756 | 349 | 350  | 723 |
-|  MiniLM | 3830 | 794 | 448 | 568  | 4360 |
+| Modelo | 1a pos | 2a pos |  3a pos | 4/5a pos | Erro | % Sucesso |
+| :------ | -------- |  -------- | -------- | -------- | -------- | :------: |
+|  Amazon Titan | 7605  | 805 | 363 |  368 | 859 | 91,41 % |
+|  BAAI/bge-m3 | 7804  | 765 | 355 | 353  | 723 | 92,77 % | 
+|  portuguese-bge-m3 | 7822  | 756 | 349 | 350  | 723 | 92,77 % | 
+|  MiniLM | 3830 | 794 | 448 | 568  | 4360 | 56,40 % |
 
