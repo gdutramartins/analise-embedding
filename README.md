@@ -139,33 +139,36 @@ As seguints métricas foram utilizadas:
 - NDCG (Normalized Discounted Cumulative Gain): Avalia a relevância dos documentos recuperados.
 - Recall@k: Mede quantos documentos relevantes aparecem no top-k resultados.
 
-
-
-Uma segunda análise foi realizada, gerando arquivos com exemplos, da seguinte forma:
-- Acertos completos - o primeiro vetor retornado, ou seja, o semanticamente mais próximo está entre as resposatas do gabarito (existem casos onde existem 5 respostas corretas).
-> Exemplo  
+Além das métricas númericas também consideramos as respostas sob três categorias:
+- Acerto Completo - Item correto é o primeiro da lista retornada. Considerado sucesso
+= Acerto Parcial - Item correto está entre o segundo e quinto elemento retornado. Considerado sucesso.
+- Erro - O item correto não aparece na busca semantica.    
+<br> 
+**Exemplos:**
+> Acerto Completo  
 > Pergunta: sintomas da gripe a e b em crianças  
 > Resposta: R: Os sintomas da gripe em crianças incluem febre alta...  
 > Pergunta: que tipos de vulcões  
 > Resposta: Os quatro tipos de vulcões. Os vulcões são agrupados em cones ...
 
-- Acertos parciais - o primeiro vetor retornado está na segunda, terceira, quarta ou quinta posição. Fizemos um arquivo para os casos de segunda e terceira posição, respectivamente, já o quarto e quinto ficou agrupado em um único arquivo.  
+> _Acerto Parcial_  
 > Pergunta: custo de correio usps  
 > Resposta: O custo médio para repintar armários de cozinha é de cerca de US $ 1.000, dependendo ...   
-> Resposta: -->Atualização das taxas de correio certificado de 2015 em 31 de maio de 2015 o serviço postal ... 
+> Resposta: -->Atualização das taxas de correio certificado de 2015 em 31 de maio de 2015 o serviço postal ...
+>   
 > Pergunta: qual a largura da bancada padrão  
 > Resposta: A direção da força de atrito é oposta à direção do movimento.  
 > Resposta: Filhotes de qualquer idade gostam de se sujar. Mas não é aconselhável dar banho em seu filhote ...  
 > Resposta: -->A altura padrão da bancada é de 36 polegadas (92 cm). Há um pouco mais de discussão ... 
 
-- Erros - a(s) resposta(s) correta(s) não estão na lista de vetores retornados na pesquisa.
+> _Erros_  
 > Pergunta: como beber água quente com limão  
 > Resposta: Encha um copo alto com água morna (tão quente quanto você pode....  
 > Resposta: Beber mais de 100 onças de água pode parecer impossível no início...  
 > Resposta: Visão geral. A bexiga, um saco oco localizado atrás do osso púbico, ...  
 > Resposta: A garça-real-azul é encontrada em habitats de água doce e salgada ...  
 > Resposta: A direção da força de atrito é oposta à direção do movimento.   
-> Resposta: -->Ferva a agua. Despeje em um copo ou 2 xícaras de água em temperatura...
+> Resposta: --> Ferva a agua. Despeje em um copo ou 2 xícaras de água em temperatura...
 
 
 ## Sobre o Resultado Gerado
