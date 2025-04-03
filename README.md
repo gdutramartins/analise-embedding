@@ -174,7 +174,7 @@ Além das métricas númericas também consideramos as respostas sob três categ
 
 
 ## Sobre o Resultado Gerado
-- diponível na aba [resultado](resultado/)
+- diponível no diretório [resultado](resultado/)
 - Fizemos duas execuções 
   - 1.000 perguntas com 1.603 opções de respostas selecionadas
   - 10.000 perguntas com 16.420 respostas selecionadas
@@ -199,7 +199,7 @@ Além das métricas númericas também consideramos as respostas sob três categ
    
 **Acertos, Acertos Parciais, Erros**  
 <br>
-Entendemos que se a busca encontrou o item procurado nos 5 primeiros registros da resposta então tivemos sucesso na indexação vetorial e pesquisa. Criamos essa heurística para o estudo e não tem aplicação geral para análise de busca semântica, mas se adequa ao nosso cenário.
+Caso a busca encontre o item procurado nos 5 primeiros registros da resposta então será considerado sucesso na indexação vetorial e pesquisa. Esta é uma proposta de análise para o estudo e não tem aplicação geral para análise de busca semântica.  
 
 
 | Modelo | 1a pos | 2a pos |  3a pos | 4/5a pos | Erro | % Sucesso |
@@ -229,7 +229,7 @@ Entendemos que se a busca encontrou o item procurado nos 5 primeiros registros d
 
 **Acertos, Acertos Parciais, Erros**  
 <br>  
-Entendemos que se a busca encontrou o item procurado nos 5 primeiros registros da resposta então tivemos sucesso na indexação vetorial e pesquisa. Criamos essa heurística para o estudo e não tem aplicação geral para análise de busca semântica, mas se adequa ao nosso cenário.
+Caso a busca encontre o item procurado nos 5 primeiros registros da resposta então será considerado sucesso na indexação vetorial e pesquisa. Esta é uma proposta de análise para o estudo e não tem aplicação geral para análise de busca semântica.  
 
 | Modelo | 1a pos | 2a pos |  3a pos | 4/5a pos | Erro | % Sucesso |
 | :------ | -------- |  -------- | -------- | -------- | -------- | :------: |
