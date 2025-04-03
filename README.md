@@ -89,15 +89,16 @@ print(f"5 ocorrências: {qtd_5_ocorrencias}")
   - doc_id - identificador do documento que responde a pergunta
   - rank - ranking da resposta. Para cada pergunta o ranking vai até 1.000.
 - 6.975.268 registros
-- Esse arquivo não é o gabarito, mas para tornar o teste interessante optamos por só utilizar queries que estão nesse arquivo, adicionando os 5 primeiros itens do ranking a nossa base. Teremos então para cada pergunta 5 respostas com semântica parecida, segundo a execução do modelo, para dificultar a seleção da resposta correta. **Importante ressaltar que esse arquivo não é um gabarito, mas uma fonte de documentos próximos semanticamente segundo as conclusões de um modelo**.  
+- Esse arquivo não é o gabarito, mas para tornar o teste ainda mais interessante optamos por só utilizar queries que estão nesse arquivo, adicionando os 5 primeiros itens do ranking a nossa base. Teremos então para cada pergunta 5 respostas com semântica parecida, segundo a execução do modelo, para dificultar a seleção da resposta correta. **Importante ressaltar que esse arquivo não é um gabarito, mas uma fonte de documentos próximos semanticamente segundo as conclusões de um modelo**.  
 <br><br>
 
 ## Execução
-Como nosso objetivo é comparar modelos então os passos executados são similares para cada um dos participantes, ajustando somente a chamada ao modelo para fazer o embedding do documento e da pergunta. O Amazon Titan teve um tratamento diferente porque sua invocação é por serviço, mas os detalhes serão tratados em um subtópico.   
+Como nosso objetivo é comparar modelos então os passos executados são similares para cada um deles.  
+O Amazon Titan teve um tratamento diferente porque sua invocação é por serviço, mas esses detalhes serão tratados em outro tópico.   
 Os passos, em alto nível, são os seguintes:   
 1 - Montagem do Dataset. - Escolha das perguntas, respectivas respostas gabarito e respostas com semantica parecida.   
 2 - Montagem da representação vetorial de todas as respostas (embedding), sejam elas corretas ou não.   
-3 - Armazenamento dos vetores multidimencionais na biblioteca FAISS(armazenamento e indexão vetorial para pesquisas semânticas)  
+3 - Armazenamento dos vetores multidimencionais na biblioteca FAISS (armazenamento e indexação vetorial para pesquisas semânticas)  
 4 - Percorrer todas as perguntas, calculando sua representação vetorial (embedding) e pesquisando no indice faiss as 5 mais próximas.  
 5 - Confrontar a acurácia da pesquisa contra as respostas gabarito.
 
