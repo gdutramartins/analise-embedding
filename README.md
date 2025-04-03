@@ -143,9 +143,11 @@ Além das métricas númericas também consideramos as respostas sob três categ
 - Acerto Completo - Item correto é o primeiro da lista retornada. Considerado sucesso
 = Acerto Parcial - Item correto está entre o segundo e quinto elemento retornado. Considerado sucesso.
 - Erro - O item correto não aparece na busca semantica.    
-<br> 
-**Exemplos:**
-> Acerto Completo  
+
+<br>    
+  
+**Exemplos:**  
+> _Acerto Completo_  
 > Pergunta: sintomas da gripe a e b em crianças  
 > Resposta: R: Os sintomas da gripe em crianças incluem febre alta...  
 > Pergunta: que tipos de vulcões  
