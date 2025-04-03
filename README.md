@@ -105,29 +105,26 @@ Os passos, em alto nível, são os seguintes:
 <br>
 
 **1 - Montagem do Dataset**  
-Mil perguntas da base de perguntas [qrels.dev.tsv](https://www.kaggle.com/datasets/gustavodutramartins/msmarco?select=qrels.dev.tsv) foram escolhidas aleatoriamente para a análise. 
-Para dificultar a tarefa do modelo utilizamos um outro arquivo [bm25_portuguese-msmarco.txt](https://www.kaggle.com/datasets/gustavodutramartins/msmarco?select=run.bm25_portuguese-msmarco.txt) que contém perguntas e respostas da base msmarco, ranqueadas segundo a análise de um modelo. Creio que seja o modelo [mt5-base Reranker finetuned on mMARCO](https://huggingface.co/unicamp-dl/mt5-base-en-pt-msmarco-v2). O arquivo não é um gabarito, ou seja, não tinha todas as respostas corretas, no entanto se mostrou bem interessante para o teste porque mostrava cerca de 10 respostas para um subconjunto de perguntas, ranqueadas segundo sua análise.... Perfeito para nosso teste, dificultando a solução do modelo e trazendo mais realidade para nossa análise.
-
-Foram incluídas as respostas corretas nos casos em que o arquivo *bm25_portuguese-msmarco.txt* estava incompleto, ou seja, o modelo não tinha acertado dentro do seu ranking.  
-
-O resultado final desse passo foi um conjunto de respostas com texto e identificador(doc_id) e outro conjunto com respostas e suas identificações (query_id)  
+- Mil perguntas da base de perguntas [qrels.dev.tsv](https://www.kaggle.com/datasets/gustavodutramartins/msmarco?select=qrels.dev.tsv) foram escolhidas aleatoriamente para a análise. 
+- No entanto, para estar no conjunto selecionado ela também deveria estar presente no arquivo [bm25_portuguese-msmarco.txt](https://www.kaggle.com/datasets/gustavodutramartins/msmarco?select=run.bm25_portuguese-msmarco.txt) que contém respostas ranqueadas segundo a análise de um modelo [T5](https://huggingface.co/unicamp-dl/mt5-base-en-pt-msmarco-v2). Importante ressaltar que não é um gabarito, somente um mecanismo utilizado para dificultar a escolha da resposta correta. Somente as 5 primeiras do ranking para cada pergunta foram selecionadas.  
+- Como o modelo T5 não gerou um gabarito então nem sempre as 5 primeiras respostas continham a correta, nesse caso adicionamos a resposta correta segundo o arquivo de gabarito (qrels).  
+- O resultado final desse passo foi um conjunto de respostas com texto e identificador(doc_id) e outro conjunto com respostas e suas identificações (query_id)  
 
 **2 - Representação Vetorial - Embedding**  
 Para cada uma das respostas foi criado o respectivo embedding, ou seja, sua representação em um vetor multidimensional. Importante ressaltar que cada modelo tem um tamanho de vetor diferente para representação multidimensional.
 
 **3 - Armazenamento**  
-Para armazenamento dos vetores utilizamos a biblioteca FAISS (Facebook AI Similarity Search) é uma biblioteca eficiente para pesquisa de similaridade e agrupamento de vetores densos. Ela permite buscar vetores de qualquer tamanho.
-Cada resposta foi adicionada ao FAISS que possui índices para acelerar a pesquisa.
+Para armazenamento dos vetores utilizamos a biblioteca FAISS (Facebook AI Similarity Search), eficiente para pesquisa de similaridade e agrupamento de vetores densos. 
 
 **4 - Avaliar Modelo**   
-Percorrer cada pergunta do dataset selecionado, gerando sua representação vetorial (embedding) e procurando os 5 vetores semanticamene mais próximos.
+Percorrer cada pergunta do dataset selecionado, gerando sua representação vetorial (embedding) e procurando as 5 respostas semanticamene mais próximas.  
 
-**5 - Calcular Métricas** 
+**5 - Calcular Métricas**  
 Avaliar as respostas, identificando quando o acerto é completo (primeiro item da lista) , parcial (entre o segundo e quinto) ou falha (a resposta correta não estava entre os 5 retornados).  
-Foram também utilizada as métricas MRR, Recall e NDCG@10. Serão detalhadas em tópico posterior.
+Foram também utilizada as métricas MRR, Recall e NDCG@10, que serão detalhadas em tópico posterior.
 
-**Observações**
-Tivemos que criar dois programas distintos, já que os modelos fornecidos pelo Huggingfaces podem invocados diretamente, ou seja, executam junto com o código. [link](Analise_Comparativa_Modelos_Embedding_HF.ipynb).    
+**Observações**  
+Tivemos que criar dois programas distintos, já que os modelos fornecidos pelo Huggingfaces podem ser invocados diretamente, ou seja, executam junto com o código. [link](Analise_Comparativa_Modelos_Embedding_HF.ipynb).    
 O Amazon Titan é chamado por serviço, necessitando de um tratamento diferenciado [link](analise_embedding_aws.py)
 
 ## Arquitetura
